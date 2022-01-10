@@ -1,0 +1,45 @@
+
+div{
+    display: flex;
+    align-items: stretch;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: space-between;
+    border-radius: 20px;
+    background-color: black;
+}
+img {
+    border-radius: 20px;
+}
+#secundario {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    border-radius: 20px;
+    width: 25%;
+    height: 20%;
+    background-color: blue;
+    ;
+}
+
+#first-line {
+    text-indent: 30px;
+}
+p {
+    text-align: justify;
+}
+header {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+#copy {
+    float: left;
+}
+
+#redes {
+    float: right;
+    width: 10px;
+    height: 10px;
+}
