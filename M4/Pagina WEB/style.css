@@ -1,17 +1,21 @@
-
+body {
+    background-image: url(zombies.webp);
+}
 div{
+    margin-top: 10px;
     display: flex;
     align-items: stretch;
     flex-direction: row;
     column-gap: 10px;
     justify-content: space-between;
     border-radius: 20px;
-    background-color: black;
+    
 }
 img {
     border-radius: 20px;
 }
 #secundario {
+    opacity: .7;
     display: flex;
     align-items: stretch;
     flex-direction: column;
@@ -39,7 +43,9 @@ header {
 }
 
 #redes {
+    display: flex;
     float: right;
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
+    flex-direction: row-reverse;    
 }
