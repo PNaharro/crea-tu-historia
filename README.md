@@ -1,4 +1,4 @@
 # crea-tu-historia
-projecto 
+proyecto 
 
 vamos a intentar no suspender
