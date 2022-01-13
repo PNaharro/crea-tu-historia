@@ -2,11 +2,16 @@ html {
     min-height: 100%;
     position: relative;
     background-image: url(zombies.jpg);
+
 }
 
 body {
     margin: 0;
     border-radius: 10px;
+    margin-bottom: 40px;
+    margin-left: 20%;
+    margin-right: 20%;
+    
 }
 
 
@@ -56,13 +61,40 @@ footer {
     background-color: white;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 60%;
+    margin-top: 20px;
 }
 li {
     border-radius: 20px;
     display: flex;
     list-style: none;
     justify-content: flex-start;
+}
+
+.telf {
+    border-radius: 20px;
+    background-color: white;
+    opacity: .7;
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.mail{
+    border-radius: 20px;
+    background-color: white;
+    opacity: .7;
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.maps {
+    border-radius: 20px;
+    opacity: .7;
+    display: grid;
+    grid-column: 1;
+    grid-row: 3;
 }
 
 .choose {
@@ -74,13 +106,18 @@ li {
     grid-row: 1;    
 }
 
+.choose p {
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+}
+
 .imggrid {
     border-radius: 10px;
-    float: right;
     opacity: .7;
     display: grid;
     grid-column: 3;
-    grid-row: 1;
+    grid-row: 2;
 }
 
 .como {
@@ -116,18 +153,15 @@ li {
     grid-gap: 10px;
     grid-auto-rows: minmax(100px, auto);
 }
-#principal {
-    background-color: white;
-    margin: 10px;
-    margin-top: 10px;
-    padding-right: 20px;
+
+.principalflex {
+    font-style: italic;
     display: flex;
     flex-direction: row;
-    column-gap: 10px;
-    justify-content: left;
-    
+    border-radius: 20px;
+    width: auto;
+    height: auto;
 }
-
 #secundario {
     opacity: .7;
     display: flex;
@@ -154,12 +188,17 @@ li {
     text-indent: 30px;
 }
 
-#videos {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 90%;
+#videoy {
+    display: grid;
+    grid-column: 1  ;
+    grid-row: auto;
     
+}
+
+#videol {
+    display: grid;
+    grid-column: auto ;
+    grid-row: auto;
 }
 
 #textovideos {
