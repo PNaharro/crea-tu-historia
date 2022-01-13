@@ -1,6 +1,6 @@
 import pymysql
 
-conn = pymysql.connect(host="20.73.187.218", user="prius", password="P@ssw0rd", db="prueba")
+conn = pymysql.connect(host="20.73.187.218", user="prius", password="P@ssw0rd", db="proyecto")
 cur = conn.cursor()
 
 def getUsers():
@@ -68,9 +68,39 @@ def checkUserbdd(user,password):
         else:
             return 0
 
-# user = input("Dime tu usuario: ")
-# password = input("Dime tu constraseña: ")
-# print(checkUserbdd(user,password))
+#user = input("Dime tu usuario: ")
+#password = input("Dime tu constraseña: ")
+#print(checkUserbdd(user,password))
+
+def get_table(tabla):
+    query = f"select * from {tabla}"
+    cur.execute(query)
+    columnas = cur.description
+    tupla = (())
+    for i in columnas:
+        tupla = tupla + i
+        tupla = tupla[:-6]
+    x = cur.fetchall()
+    tuplafin = ((tupla),(x))
+    print(tuplafin)
+#tabla = input("Introduce el nombre de la tabla: ")
+#get_table("usuarios")
+
+def insertUser(user,password):
+    query = f"insert into usuarios (nombre, password, usuariocreacion, usuariomodificacion) values ('{user}','{password}',user(),user())"
+    cur.execute(query)
+    conn.commit()
+user = input("Introduce un nombre de usuario: ")
+password = input("Introduce una contraseña: ")
+insertUser(user,password)
+
+def checkUser():
+    user = input("Introduce un nombre de usuario: ")
+    if len(user) < 6 or len(user) > 10 and user.isalnum() == False:
+        return False
+    else:
+        return True
+#print(checkUser())
 
 def getHeader(text):
     x = (100-len(text))/2
