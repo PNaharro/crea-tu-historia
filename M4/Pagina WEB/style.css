@@ -14,7 +14,6 @@ body {
     
 }
 
-
 header {
     display: flex;
     flex-direction: row;
@@ -24,6 +23,13 @@ header {
     font: condensed 120% sans-serif;
 }
 
+h3 {
+    margin-left: 10px;
+}
+
+p {
+    margin-left: 10px;
+}
 
 a {
     font-style: italic;
@@ -74,7 +80,6 @@ li {
 .telf {
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 1;
     grid-row: 1;
@@ -83,7 +88,6 @@ li {
 .mail{
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 1;
     grid-row: 2;
@@ -91,7 +95,6 @@ li {
 
 .maps {
     border-radius: 20px;
-    opacity: .7;
     display: grid;
     grid-column: 1;
     grid-row: 3;
@@ -100,10 +103,9 @@ li {
 .choose {
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 1 / 3;
-    grid-row: 1;    
+    grid-row: 1;       
 }
 
 .choose p {
@@ -114,7 +116,6 @@ li {
 
 .imggrid {
     border-radius: 10px;
-    opacity: .7;
     display: grid;
     grid-column: 3;
     grid-row: 2;
@@ -123,16 +124,15 @@ li {
 .como {
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 1 / 3;
     grid-row: 2;
+    
 }
 
 .donde {
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 1 / 3;
     grid-row: 3;
@@ -141,7 +141,6 @@ li {
 .apartados {
     border-radius: 20px;
     background-color: white;
-    opacity: .7;
     display: grid;
     grid-column: 3;
     grid-row: 1 / 3;
@@ -154,34 +153,18 @@ li {
     grid-auto-rows: minmax(100px, auto);
 }
 
-.principalflex {
-    font-style: italic;
-    display: flex;
-    flex-direction: row;
+.textovyi {
     border-radius: 20px;
-    width: auto;
-    height: auto;
-}
-#secundario {
-    opacity: .7;
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    width: 80%;
-    height: 20%;
     background-color: white;
-    ;
+    margin-left: 10px;
 }
 
-#secundario2 {
+p.textovyi::first-letter {
+    font-size: 3em;
     opacity: .7;
     display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    width: 20%;
-    height: 40%;
-    background-color: white;
-    padding-bottom: 13%;
+    flex-direction: row;
+    width: auto;
 }
 
 #first-line {
@@ -201,13 +184,13 @@ li {
     grid-row: auto;
 }
 
-#textovideos {
-    opacity: .7;
+
+
+#textoabout {
     display: flex;
     flex-direction: row;
     border-radius: 10px;
-    width: 90%;
+    width: auto;
     background-color: white;
-    ;
 }
 
