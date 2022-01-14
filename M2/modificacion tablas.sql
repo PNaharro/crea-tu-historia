@@ -18,9 +18,9 @@ add unique(id_per),
 modify id_per int auto_increment,
 modify nombre varchar(10) not null,
 modify fechacreacion datetime null,
-modify usuariocreacion varchar(10) not null,
+modify usuariocreacion varchar(50) not null,
 modify fechamodificacion datetime null,
-modify usuariomodificacion varchar(10) not null;
+modify usuariomodificacion varchar(50) null;
 
 alter table aventura
 add primary key(id_aventura),
@@ -31,15 +31,16 @@ modify fecha datetime null,
 modify id_usu int not null,
 modify id_per int not null,
 modify fechacreacion datetime null,
-modify usuariocreacion varchar(10) not null,
+modify usuariocreacion varchar(50) not null,
 modify fechamodificacion datetime null,
-modify usuariomodificacion varchar(10) not null,
+modify usuariomodificacion varchar(50) null,
 add constraint fk_aventura_usuarios
 	foreign key (id_usu)
 		references usuarios(id_usu),
 add constraint fk_aventura_personajes
 	foreign key (id_per)
-		references personajes(id_per);
+		references personajes(id_per),
+modify descripcion varchar(100) not null;
 
 alter table pasos
 add primary key(id_paso),
@@ -65,9 +66,9 @@ modify id_paso int not null,
 modify id_aventura int not null,
 modify num_respuesta int not null,
 modify fechacreacion datetime null,
-modify usuariocreacion varchar(10) not null,
+modify usuariocreacion varchar(50) not null,
 modify fechamodificacion datetime null,
-modify usuariomodificacion varchar(10) not null,
+modify usuariomodificacion varchar(50)null,
 add constraint fk_respuesta_pasos
 	foreign key (id_paso)
 		references pasos(id_paso),
@@ -83,9 +84,9 @@ modify numero int not null,
 modify id_aventura int not null,
 modify id_usu int not null,
 modify fechacreacion datetime null,
-modify usuariocreacion varchar(10) not null,
+modify usuariocreacion varchar(50) not null,
 modify fechamodificacion datetime null,
-modify usuariomodificacion varchar(10) not null,
+modify usuariomodificacion varchar(50) null,
 add constraint fk_repeticiones_aventura
 	foreign key (id_aventura)
 		references aventura(id_aventura),

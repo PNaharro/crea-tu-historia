@@ -1,13 +1,14 @@
 use proyecto;
 
-insert into usuarios(nombre,password,usuariocreacion,usuariomodificacion) values ("Pau","Password",user(),user());
+insert into usuarios(nombre,password,usuariocreacion) values ("Pau","Password",user());
 
-insert into personajes(nombre,usuariocreacion,usuariomodificacion) values ("Jose","Naharro","Naharro");
+insert into personajes(nombre,usuariocreacion) values ("Jose",user());
+insert into personajes(nombre,usuariocreacion) values ("Laura",user());
 
-insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,usuariomodificacion) values ("Death is Death",
+insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,usuariomodificacion,descripcion) values ("Death is Death",
 (select id_usu from usuarios where nombre="Pau"),
 (select id_per from personajes where nombre="Jose")
-,"Naharro","Naharro");
+,"Naharro","Naharro","Descubre de donde proceden los sonidos");
 
 insert into pasos(id_paso,id_aventura,paso,num_paso,usuariocreacion,usuariomodificacion) values (id_paso,(select id_aventura from aventura where nombre_aventura="Death is Death")
 ,"Despiertas tras una pesadilla, la noche es tranquila y intentas relajarte despues de el susto, al conseguir calmarte escuchas ruido fuera de tu piso, Que hace MC:"
@@ -119,6 +120,5 @@ insert into respuesta(id_respuesta,id_aventura,respuesta,num_respuesta,usuariocr
 insert into respuesta(id_respuesta,id_aventura,respuesta,num_respuesta,usuariocreacion,usuariomodificacion,id_paso) values (id_respuesta,(select id_aventura from aventura where nombre_aventura="Death is Death"),
 "no ir.",22,"Naharro","Naharro",
 (select id_paso from pasos where num_paso="122"));
-
 
 

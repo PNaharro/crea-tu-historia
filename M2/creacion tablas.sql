@@ -30,7 +30,8 @@ id_per int,
 fechacreacion datetime,
 usuariocreacion varchar(10),
 fechamodificacion datetime,
-usuariomodificacion varchar(10)
+usuariomodificacion varchar(10),
+descripcion varchar(100)
 );
 
 create table if not exists pasos (
