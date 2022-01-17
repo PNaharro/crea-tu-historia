@@ -167,3 +167,34 @@ def get_adventures_with_chars():
 def get_characters():
     return characters
 #print(get_characters())
+
+def formatText(texto,longitud):
+    y = ""
+    z = ""
+    for i in texto:
+        y += i
+        if len(y) >= longitud and i.isspace():
+            z += y + "\n"
+            y = ""
+    z += y
+    return z
+#print(formatText("texto de ejemplo",20))
+def formatText_getFormatedAdventures(texto,longitud):
+    y = ""
+    z = ""
+    for i in texto:
+        y += i
+        if len(y) >= longitud and i.isspace():
+            z += y + "\n".ljust(58)
+            y = ""
+    z += y
+    return z
+#print(formatText_getFormatedAdventures("texto de ejemplo",20))
+
+def getFormatedAdventures():
+    cadena = "=" * 58 + "Adventures" + "=" * 58 + "\n" + "Id Aventura"+ \
+             "Aventura".rjust(13) + "Descripcion".rjust(44) + "\n" + "*" * 126
+    print(cadena)
+    for i in get_adventures_with_chars():
+        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
+#getFormatedAdventures()
