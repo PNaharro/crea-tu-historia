@@ -193,8 +193,8 @@ def formatText_getFormatedAdventures(texto,longitud):
 
 
 def getHeader_getHeadeForTableFromTuples(text):
-    x = (126-len(text))/2
-    y = 126
+    x = (104-len(text))/2
+    y = 104
     if len(text)%2!=0:
         y -= 1
     cadena = "="*int(x) + text + "="*int(x)
@@ -205,9 +205,8 @@ def getHeadeForTableFromTuples(t_name_columns,t_size_columns,title):
     for i in t_name_columns:
             cadena += i.rjust(t_size_columns[0])
             t_size_columns = t_size_columns[1:]
-    cadena += "\n" + "*" * 126
+    cadena += "\n" + "*" * 104
     return cadena
-
 #print(getHeadeForTableFromTuples(("Columna1","Columna2","Columna3","Columna4"),(0,30,50,10),"Texto de ejemplo"))
 
 def getFormatedAdventures():
@@ -215,4 +214,5 @@ def getFormatedAdventures():
     print(cadena)
     for i in get_adventures_with_chars():
         print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
-#getFormatedAdventures()
+getFormatedAdventures()
+
