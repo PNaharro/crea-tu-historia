@@ -198,3 +198,21 @@ def getFormatedAdventures():
     for i in get_adventures_with_chars():
         print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
 #getFormatedAdventures()
+
+def getHeader_getHeadeForTableFromTuples(text):
+    x = (126-len(text))/2
+    y = 126
+    if len(text)%2!=0:
+        y -= 1
+    cadena = "="*int(x) + text + "="*int(x)
+    return cadena
+
+def getHeadeForTableFromTuples(t_name_columns,t_size_columns,title):
+    cadena = title + "\n"
+    for i in t_name_columns:
+            cadena += i.rjust(t_size_columns[0])
+            t_size_columns = t_size_columns[1:]
+    cadena += "\n" + "*" * 126
+    return cadena
+
+#print(getHeadeForTableFromTuples(("Columna1","Columna2","Columna3","Columna4"),(0,30,50,10),getHeader_getHeadeForTableFromTuples("Texto de ejemplo")))
