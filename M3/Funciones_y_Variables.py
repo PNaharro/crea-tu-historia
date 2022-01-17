@@ -191,13 +191,6 @@ def formatText_getFormatedAdventures(texto,longitud):
     return z
 #print(formatText_getFormatedAdventures("texto de ejemplo",20))
 
-def getFormatedAdventures():
-    cadena = "=" * 58 + "Adventures" + "=" * 58 + "\n" + "Id Aventura"+ \
-             "Aventura".rjust(13) + "Descripcion".rjust(44) + "\n" + "*" * 126
-    print(cadena)
-    for i in get_adventures_with_chars():
-        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
-#getFormatedAdventures()
 
 def getHeader_getHeadeForTableFromTuples(text):
     x = (126-len(text))/2
@@ -208,11 +201,18 @@ def getHeader_getHeadeForTableFromTuples(text):
     return cadena
 
 def getHeadeForTableFromTuples(t_name_columns,t_size_columns,title):
-    cadena = title + "\n"
+    cadena = getHeader_getHeadeForTableFromTuples(title) + "\n"
     for i in t_name_columns:
             cadena += i.rjust(t_size_columns[0])
             t_size_columns = t_size_columns[1:]
     cadena += "\n" + "*" * 126
     return cadena
 
-#print(getHeadeForTableFromTuples(("Columna1","Columna2","Columna3","Columna4"),(0,30,50,10),getHeader_getHeadeForTableFromTuples("Texto de ejemplo")))
+#print(getHeadeForTableFromTuples(("Columna1","Columna2","Columna3","Columna4"),(0,30,50,10),"Texto de ejemplo"))
+
+def getFormatedAdventures():
+    cadena = getHeadeForTableFromTuples(("Id Aventura","Aventura","Descripcion"),(0,13,44),"Adventures")
+    print(cadena)
+    for i in get_adventures_with_chars():
+        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
+#getFormatedAdventures()
