@@ -166,7 +166,7 @@ def get_adventures_with_chars():
 #print(get_adventures_with_chars())
 def get_characters():
     return characters
-#print(get_characters())
+print(get_characters())
 
 def formatText(texto,longitud):
     y = ""
@@ -214,5 +214,5 @@ def getFormatedAdventures():
     print(cadena)
     for i in get_adventures_with_chars():
         print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
-getFormatedAdventures()
+#getFormatedAdventures()
 
