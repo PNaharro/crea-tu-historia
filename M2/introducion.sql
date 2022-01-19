@@ -1,6 +1,8 @@
 use proyecto;
 
 insert into usuarios(nombre,password,usuariocreacion) values ("Pau","Password",user());
+insert into usuarios(nombre,password,usuariocreacion) values ("a","a",user());
+select * from usuarios;
 
 insert into personajes(nombre,usuariocreacion) values ("Jose",user());
 insert into personajes(nombre,usuariocreacion) values ("Laura",user());
@@ -9,6 +11,26 @@ insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,usuariomodifi
 (select id_usu from usuarios where nombre="Pau"),
 (select id_per from personajes where nombre="Jose")
 ,"Naharro","Naharro","Descubre de donde proceden los sonidos");
+
+insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,descripcion) values ("Life is Death",
+(select id_usu from usuarios where nombre="Pau"),
+(select id_per from personajes where nombre="Jose")
+,user(),"TExto de ejemplo tan ejemplar que ejemplo ejemplo");
+
+insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,descripcion) values ("Ejemplo 1",
+(select id_usu from usuarios where nombre="Pau"),
+(select id_per from personajes where nombre="Jose")
+,user(),"TExto de ejemplo tan ejemplar que ejemplo ejemplo");
+
+insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,descripcion) values ("Ejemplo 2",
+(select id_usu from usuarios where nombre="Pau"),
+(select id_per from personajes where nombre="Jose")
+,user(),"TExto de ejemplo tan ejemplar que ejemplo ejemplo");
+
+insert into aventura(nombre_aventura,id_usu,id_per,usuariocreacion,descripcion) values ("Ejemplo 3",
+(select id_usu from usuarios where nombre="Pau"),
+(select id_per from personajes where nombre="Jose")
+,user(),"TExto de ejemplo tan ejemplar que ejemplo ejemplo");
 
 insert into pasos(id_paso,id_aventura,paso,num_paso,usuariocreacion,usuariomodificacion) values (id_paso,(select id_aventura from aventura where nombre_aventura="Death is Death")
 ,"Despiertas tras una pesadilla, la noche es tranquila y intentas relajarte despues de el susto, al conseguir calmarte escuchas ruido fuera de tu piso, Que hace MC:"
@@ -63,18 +85,18 @@ insert into pasos(id_paso,id_aventura,paso,num_paso,usuariocreacion,usuariomodif
 ,"121","Naharro","Naharro");
 
 insert into pasos(id_paso,id_aventura,paso,num_paso,usuariocreacion,usuariomodificacion) values (id_paso,(select id_aventura from aventura where nombre_aventura="Death is Death")
-," decides no ir con ellos, cuando ellos salen los escuchas gritar, pensando que solo se estan peleando con tus vecinos no le tomas mucha importancia, pasado un rato todo queda en silencio, y después de eso escuchas la puerta, mientras que vas quedando dormido. mientras estas dormido alguien entra a tu habitación haciendo ruido inentendibles."
+,"decides no ir con ellos, cuando ellos salen los escuchas gritar, pensando que solo se estan peleando con tus vecinos no le tomas mucha importancia, pasado un rato todo queda en silencio, y después de eso escuchas la puerta, mientras que vas quedando dormido. mientras estas dormido alguien entra a tu habitación haciendo ruido inentendibles."
 ,"122","Naharro","Naharro");
 
 ################################
 
 
 insert into respuesta(id_respuesta,id_aventura,respuesta,num_respuesta,usuariocreacion,usuariomodificacion,id_paso) values (id_respuesta,(select id_aventura from aventura where nombre_aventura="Death is Death"),
-" ignoras el ruido y intentas volver a domir.",11,"Naharro","Naharro",
+"ignoras el ruido y intentas volver a domir.",11,"Naharro","Naharro",
 (select id_paso from pasos where num_paso="11"));
 
 insert into respuesta(id_respuesta,id_aventura,respuesta,num_respuesta,usuariocreacion,usuariomodificacion,id_paso) values (id_respuesta,(select id_aventura from aventura where nombre_aventura="Death is Death"),
-" Te levantas de la cama para ir a ver que ha pasado.",12,"Naharro","Naharro",
+"Te levantas de la cama para ir a ver que ha pasado.",12,"Naharro","Naharro",
 (select id_paso from pasos where num_paso="12"));
 
 insert into respuesta(id_respuesta,id_aventura,respuesta,num_respuesta,usuariocreacion,usuariomodificacion,id_paso) values (id_respuesta,(select id_aventura from aventura where nombre_aventura="Death is Death"),
