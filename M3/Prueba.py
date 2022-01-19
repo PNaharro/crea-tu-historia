@@ -13,19 +13,18 @@ def get_table(tabla):
         tupla = tupla[:-6]
     x = cur.fetchall()
     tuplafin = ((tupla),(x))
-    return tuplafin
-# print(get_table("aventura"))
-# print(get_table("pasos"))
-# print(get_table("respuesta"))
+    return tuplafink
 
 
-# print(get_table("respuesta")[1][0])
-# print(get_table("pasos")[1][int(get_table("respuesta")[1][0][2])-1])
-# print(get_table("aventura")[1][int(get_table("pasos")[1][int(get_table("respuesta")[1][0][2])-1][2])-1])
+print(get_table("respuesta")[1][0])
+print(get_table("pasos")[1][int(get_table("respuesta")[1][0][2])-1])
+print(get_table("aventura")[1][int(get_table("pasos")[1][int(get_table("respuesta")[1][0][2])-1][2])-1])
 
 for i in get_table("respuesta")[1]:
-    print("Respuesta=", i[2])
-    for j in get_table("pasos")[1][i[2]]:
-        print("Pasos=",j)
+    print("Respuestas=",i[2])
+    for j in get_table("pasos")[1]:
+        if j[0] == i[2]:
+            print(j[0]," - ",j[2])
         for n in get_table("aventura")[1]:
-            print("Aventura=",n)
+            if n[0] == j[2]:
+                print(n[0],n[1])

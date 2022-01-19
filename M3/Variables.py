@@ -18,28 +18,24 @@ def getHeadeForTableFromTuples(t_name_columns,t_size_columns,title):
     cadena += "\n" + "*" * 119
     return cadena
 
-def get_table(tabla):
-    query = f"select * from {tabla}"
-    cur.execute(query)
-    columnas = cur.description
-    tupla = (())
-    for i in columnas:
-        tupla = tupla + i
-        tupla = tupla[:-6]
-    x = cur.fetchall()
-    tuplafin = ((tupla),(x))
-    return tuplafin
-# print(get_table(aventura))
-# print(get_table(pasos))
-# print(get_table(respuesta))
-
-for i in range(len(get_table("aventura")[1])):
-    for j in range(len(get_table("aventura")[1])):
-        print(get_table("aventura")[1][i][j],"\n",get_table("pasos")[1][i][j],"\n",get_table("respuesta")[1][i][j])
-
-
+def formatText(texto,longitud):
+    y = ""
+    z = ""
+    for i in texto:
+        y += i
+        if len(y) >= longitud and i.isspace():
+            z += y + "\n".ljust(30)
+            y = ""
+    z += y
+    return z
 
 def getFormatedTable():
-    print(getHeadeForTableFromTuples(("ID AVENTURA - NOMBRE","ID PASO - DESCRIPCION","ID RESPUESTA - DESCRIPCION","NUMERO DE VECES SELECCIONADA"),(0,30,30,39),"Respuestas más usadas"))
-
+    query = f"select a.id_aventura, a.nombre_aventura, p.id_paso, p.paso, r.id_respuesta, r.respuesta from aventura a inner join pasos p on p.id_aventura=a.id_aventura inner join respuesta r on r.id_paso=p.id_paso;"
+    cur.execute(query)
+    x = cur.fetchall()
+    print(getHeadeForTableFromTuples(("ID AVENTURA - NOMBRE","ID PASO - DESCRIPCION","ID RESPUESTA - DESCRIPCION","NUMERO DE VECES SELECCIONADA"),(0,25,40,34),"Respuestas más usadas"))
+    for i in x:
+        print(i[0], "-", formatText(i[1], 20),str(i[2]).rjust(7),"-",formatText(i[3],20),str(i[4]).rjust(10),"-",i[5])
 getFormatedTable()
+
+
