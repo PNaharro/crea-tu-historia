@@ -25,7 +25,8 @@ for i in personajes:
 #print(characters)
 
 ###################################     FUNCIONES     #########################################################
-
+#MUESTRA LOS USUSARIOS EN UN DICCIONARIO CON SUS CONTRASEÑAS E IDS
+#######################################################################################################################
 def getUsers():
     query = f"select * from usuarios"
     cur.execute(query)
@@ -35,7 +36,9 @@ def getUsers():
         diccionario[i[1]] = {"contraseña":i[2],"id":i[0]}
     return  diccionario
 #print(getUsers())
-
+#######################################################################################################################
+#MUESTRA LOS USUARIOS EN UNA LISTA, USUARIO E ID
+#######################################################################################################################
 def getUserIds():
     query = f"select * from usuarios"
     cur.execute(query)
@@ -46,7 +49,9 @@ def getUserIds():
         listausr[1].append(i[0])
     return listausr
 #print(getUserIds())
-
+#######################################################################################################################
+#COMPRUEBA SI EL USUARIO EXISTE EN LA BASE DE DATOS
+#######################################################################################################################
 def userExists(user):
     for i in getUsers():
         if user == i:
@@ -55,7 +60,9 @@ def userExists(user):
             return False
 #user = input("Dime el usuario: ")
 #print(userExists(user))
-
+#######################################################################################################################
+#COMPRUEVA SI LA PASW INSERTADA ES SEGURA
+#######################################################################################################################
 def checkPassword(password):
     if not len(password) >=8 and len(password) <= 12:
         return False
@@ -80,7 +87,9 @@ def checkPassword(password):
     else:
         return True
 #print(checkPassword("P@ssw0rd"))
-
+#######################################################################################################################
+#PONES UN USUARIO Y LA CONTRASEÑA RESPECTIVA DEL USUARIO Y LOS COMPRUEVA
+#######################################################################################################################
 def checkUserbdd(user,password):
     for i in getUsers():
         if user == i:
@@ -88,12 +97,12 @@ def checkUserbdd(user,password):
                 return 1
             else:
                 return -1
-        else:
-            return 0
-#user = input("Dime tu usuario: ")
-#password = input("Dime tu constraseña: ")
-#print(checkUserbdd(user,password))
+    return 0
+#print(checkUserbdd("a","a"))
 
+#######################################################################################################################
+#PONES EL NOMBRE DE LA TABLA DE LA BDD Y TE MUESTRA EN UNA TUPLA DE TUPLAS SU CONTENIDO
+#######################################################################################################################
 def get_table(tabla):
     query = f"select * from {tabla}"
     cur.execute(query)
@@ -107,7 +116,9 @@ def get_table(tabla):
     return tuplafin
 #tabla = input("Introduce el nombre de la tabla: ")
 #print(get_table(tabla))
-
+#######################################################################################################################
+#COMPRUEBA SI EL USR CUMPLE LOS REQUISITOS
+#######################################################################################################################
 def checkUser(user):
     if len(user) < 6 or len(user) > 10 and user.isalnum() == False:
         return False
@@ -115,7 +126,9 @@ def checkUser(user):
         return True
 #user = input("Introduce un nombre de usuario: ")
 #print(checkUser(user))
-
+#######################################################################################################################
+#CREA UNA CABECERA
+#######################################################################################################################
 def getHeader(text):
     x = (100-len(text))/2
     y = 100
@@ -124,13 +137,16 @@ def getHeader(text):
     cadena = "*"*y +"\n" + "="*int(x) + text + "="*int(x) + "\n" + "*"*y
     return cadena
 #print(getHeader("ESTO ACEPTA HASTA 100 CARACTERES"))
-
-def checkUserbdd_(user):
+#######################################################################################################################
+#PERMITE CREAR UN USUARIO EN LA BDD
+#######################################################################################################################
+def checkUserbdd_insertUser(user):
     for i in getUsers():
         if user == i:
             return 1
         else:
             return 0
+
 def insertUser():
     confirmacion = "Usuario creado con exito"
     salir = "Saliendo"
@@ -142,7 +158,7 @@ def insertUser():
             print("El usuario no cumple con los requisitos")
         else:
             print("Usuario correcto")
-            if checkUserbdd_(user) == 1:
+            if checkUserbdd_insertUser(user) == 1:
                 print("Este nombre de usuario ya existe en la base de datos")
             else:
                 print("Este nombre no esta en la base de datos")
@@ -160,14 +176,21 @@ def insertUser():
             conn.commit()
             return confirmacion
 #print(insertUser())
-
+#######################################################################################################################
+#DEVUELVE UN DICT CON LAS AVENTURAS
+#######################################################################################################################
 def get_adventures_with_chars():
     return adventures
 #print(get_adventures_with_chars())
+#######################################################################################################################
+#DEVUELVE UN DICT CON LOS PERSONAJES
+#######################################################################################################################
 def get_characters():
     return characters
-print(get_characters())
-
+#print(get_characters())
+#######################################################################################################################
+#CUANDO EL TEXTO SUPERA LA LONGITUD, HACE UN ENTER
+#######################################################################################################################
 def formatText(texto,longitud):
     y = ""
     z = ""
@@ -179,19 +202,9 @@ def formatText(texto,longitud):
     z += y
     return z
 #print(formatText("texto de ejemplo",20))
-def formatText_getFormatedAdventures(texto,longitud):
-    y = ""
-    z = ""
-    for i in texto:
-        y += i
-        if len(y) >= longitud and i.isspace():
-            z += y + "\n".ljust(58)
-            y = ""
-    z += y
-    return z
-#print(formatText_getFormatedAdventures("texto de ejemplo",20))
-
-
+#######################################################################################################################
+#PERMITE CREAR UNA CABECERA COMPLETA
+#######################################################################################################################
 def getHeader_getHeadeForTableFromTuples(text):
     x = (104-len(text))/2
     y = 104
@@ -208,21 +221,35 @@ def getHeadeForTableFromTuples(t_name_columns,t_size_columns,title):
     cadena += "\n" + "*" * 104
     return cadena
 #print(getHeadeForTableFromTuples(("Columna1","Columna2","Columna3","Columna4"),(0,30,50,10),"Texto de ejemplo"))
+#######################################################################################################################
 
+#######################################################################################################################
+def formatText_getFormatedAdventures(texto,longitud):
+    y = ""
+    z = ""
+    for i in texto:
+        y += i
+        if len(y) >= longitud and i.isspace():
+            z += y + "\n".ljust(58)
+            y = ""
+    z += y
+    return z
+#print(formatText_getFormatedAdventures("texto de ejemplo",20))
 def getFormatedAdventures():
     cadena = getHeadeForTableFromTuples(("Id Aventura","Aventura","Descripcion"),(0,13,44),"Adventures")
     print(cadena)
     for i in get_adventures_with_chars():
-        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],50))
+        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],40))
 #getFormatedAdventures()
+#######################################################################################################################
+#CREA UN MENU AUTOMATICAMENTE
+#######################################################################################################################
 def menu(tupla):
     while True:
         cadena = ""
         for i in range(len(tupla)):
             cadena += "".ljust(50)+(str(i+1)+")"+tupla[i]+"\n")
         print(cadena)
-        return
-def revision(tupla):
         opc = input("Opcion:")
         if not opc.isdigit():
             print("Opcion invalida")
@@ -230,17 +257,35 @@ def revision(tupla):
             print("Opcion invalida")
         else:
             return int(opc)
-
-# adv = input("opcion:")
-# aventura = get_table("aventura")
+#print(menu(("Tupla","De","Ejemplo")))
+#######################################################################################################################
+# def formatText_getFormatedAdventures(texto,longitud):
+#     y = ""
+#     z = ""
+#     for i in texto:
+#         y += i
+#         if len(y) >= longitud and i.isspace():
+#             z += y + "\n".ljust(58)
+#             y = ""
+#     z += y
+#     return z
+# #print(formatText_getFormatedAdventures("texto de ejemplo",20))
+# def getFormatedAdventures():
+#     cadena = getHeadeForTableFromTuples(("Id Aventura","Aventura","Descripcion"),(0,13,44),"Adventures")
+#     print(cadena)
+#     x = 0
 #
-# print(aventura)
-# print(aventura[1][0][0], adv)
-# print(aventura[1][1][0], adv)
-# for i in range(len(aventura)):
-#     print(i, adv)
-#     if int(adv) == int(aventura[1][i][0]):
-#         print(getHeader(aventura[1][i][1]))
-#         cadena = "Aventura:".ljust(20) + str(aventura[1][i][1]).rjust(20) + "\n" + "Descripcion:".ljust(26) + str(aventura[1][i][9]).rjust(30)
-#         print(cadena)
-
+#     try:
+#         while True:
+#             for i in get_adventures_with_chars():
+#                 print(str(i+x).ljust(15),get_adventures_with_chars()[i+x]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i+x]["Description"],40))
+#                 if i == 3:
+#                     break
+#             respuesta = input("DImeloooooo: ")
+#             if respuesta == "+":
+#                 x += 3
+#             elif respuesta == "-":
+#                 x -= 3
+#     except:   
+#         x += 1
+# getFormatedAdventures()
