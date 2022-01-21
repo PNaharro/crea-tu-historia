@@ -1,4 +1,3 @@
-
 create database if not exists proyecto;
 
 use proyecto;
@@ -40,6 +39,7 @@ id_paso int ,
 paso varchar(1000),
 id_aventura int, 
 num_paso int,
+final int,
 fechacreacion datetime,
 usuariocreacion varchar(10),
 fechamodificacion datetime,
@@ -59,9 +59,10 @@ usuariomodificacion varchar(10)
 );
 
 create table if not exists repeticiones (
-id_num int ,
-numero int ,
-id_aventura int ,
+id_num int,
+numero int,
+id_paso int,
+id_respuesta int,
 id_usu int,
 id_game int,
 fechacreacion datetime,

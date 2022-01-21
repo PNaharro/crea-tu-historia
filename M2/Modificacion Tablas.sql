@@ -49,6 +49,7 @@ modify id_paso int auto_increment,
 modify paso varchar(1000) not null,
 modify id_aventura int not null,
 modify num_paso int not null,
+modify final int not null,
 modify fechacreacion datetime null,
 modify usuariocreacion varchar(10) not null,
 modify fechamodificacion datetime null,
@@ -69,31 +70,9 @@ modify fechacreacion datetime null,
 modify usuariocreacion varchar(50) not null,
 modify fechamodificacion datetime null,
 modify usuariomodificacion varchar(50)null,
-add constraint fk_respuesta_pasos
-	foreign key (id_paso)
-		references pasos(id_paso),
 add constraint fk_respuesta_aventura
 	foreign key (id_aventura)
 		references aventura(id_aventura);
-
-alter table repeticiones
-add primary key(id_num),
-add unique (id_num),
-modify id_num int auto_increment,
-modify numero int not null,
-modify id_aventura int not null,
-modify id_usu int not null,
-modify id_game int null,
-modify fechacreacion datetime null,
-modify usuariocreacion varchar(50) not null,
-modify fechamodificacion datetime null,
-modify usuariomodificacion varchar(50) null,
-add constraint fk_repeticiones_aventura
-	foreign key (id_aventura)
-		references aventura(id_aventura),
-add constraint fk_repeticiones_usuarios
-	foreign key (id_usu)
-		references usuarios(id_usu);
 
 alter table Game
 add primary key (idGame),
@@ -107,6 +86,33 @@ add constraint fk_Game_aventura
 add constraint fk_Game_usuario
 	foreign key (id_usuario)
 		references usuarios(id_usu);
+
+alter table repeticiones
+add primary key(id_num),
+add unique (id_num),
+modify id_num int auto_increment,
+modify numero int not null,
+modify id_paso int not null,
+modify id_respuesta int not null,
+modify id_usu int not null,
+modify id_game int null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50) null,
+add constraint fk_repeticiones_pasos
+	foreign key (id_paso)
+		references pasos(id_paso),
+add constraint fk_repeticiones_usuarios
+	foreign key (id_usu)
+		references usuarios(id_usu),
+add constraint fk_repeticiones_respuesta
+	foreign key(id_respuesta)
+		references respuesta(id_respuesta),
+add constraint fk_repeticiones_Game
+	foreign key(id_game)
+		references Game(idGame);
+
 
 CREATE unique INDEX indice_usuarios ON usuarios(id_usu);
 CREATE unique INDEX indice_aventura ON aventura(id_aventura);
