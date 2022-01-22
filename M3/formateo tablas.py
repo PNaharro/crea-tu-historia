@@ -60,9 +60,9 @@ def getFormatedTable():
     x = cur.fetchall()
     print(getHeadeForTableFromTuples(("ID AVENTURA - NOMBRE","ID PASO - DESCRIPCION","ID RESPUESTA - DESCRIPCION","NUMERO DE VECES SELECCIONADA"),(0,25,43,31),"Respuestas más usadas"))
 
-query = f"select concat(a.id_aventura,' - ', a.nombre_aventura), concat(p.id_paso,' - ', p.paso),concat( r.id_respuesta,' - ', r.respuesta) from aventura a inner join pasos p on p.id_aventura=a.id_aventura inner join respuesta r on r.id_paso=p.id_paso;"
+query = f"select concat(a.id_aventura,' - ', a.nombre_aventura), concat(p.id_paso,' - ', p.paso),concat( r.id_respuesta,' - ', r.respuesta), count(re.id_respuesta) from aventura a inner join pasos p on p.id_aventura=a.id_aventura inner join respuesta r on r.id_paso=p.id_paso inner join repeticiones re on re.id_respuesta=r.id_respuesta group by re.id_respuesta;"
 
-
+# query = f"select concat(a.id_aventura,' - ', a.nombre_aventura), concat(p.id_paso,' - ', p.paso),concat( r.id_respuesta,' - ', r.respuesta) from aventura a inner join pasos p on p.id_aventura=a.id_aventura inner join respuesta r on r.id_paso=p.id_paso ;"
 cur.execute(query)
 x = cur.fetchall()
 
@@ -72,8 +72,9 @@ for i in x:
     texto1 = i[0]
     texto2 = i[1]
     texto3= i[2]
-    tupla = (texto1,texto2,texto3)
-    size = (25, 38, 25)
-    print(getFormatedBodyColumns(tupla, size, margin=3))
+    texto4 = str(i[3])
+    tupla = (texto1,texto2,texto3,texto4)
+    size = (25, 38, 29, 20)
+    print(getFormatedBodyColumns(tupla, size, margin=2))
 
 
