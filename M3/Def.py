@@ -11,7 +11,7 @@ cur.execute(query)
 personajes = cur.fetchall()
 adventures = {}
 for i in aventura:
-    adventures[i[0]] = {"Name": i[1], "Description": i[9], "characters": []}
+    adventures[i[0]] = {"Name": i[1], "Description": i[7], "characters": []}
     for j in personajes:
         adventures[i[0]]["characters"].append(j[0])
 #print(adventures)
@@ -259,33 +259,3 @@ def menu(tupla):
             return int(opc)
 #print(menu(("Tupla","De","Ejemplo")))
 #######################################################################################################################
-# def formatText_getFormatedAdventures(texto,longitud):
-#     y = ""
-#     z = ""
-#     for i in texto:
-#         y += i
-#         if len(y) >= longitud and i.isspace():
-#             z += y + "\n".ljust(58)
-#             y = ""
-#     z += y
-#     return z
-# #print(formatText_getFormatedAdventures("texto de ejemplo",20))
-# def getFormatedAdventures():
-#     cadena = getHeadeForTableFromTuples(("Id Aventura","Aventura","Descripcion"),(0,13,44),"Adventures")
-#     print(cadena)
-#     x = 0
-#
-#     try:
-#         while True:
-#             for i in get_adventures_with_chars():
-#                 print(str(i+x).ljust(15),get_adventures_with_chars()[i+x]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i+x]["Description"],40))
-#                 if i == 3:
-#                     break
-#             respuesta = input("DImeloooooo: ")
-#             if respuesta == "+":
-#                 x += 3
-#             elif respuesta == "-":
-#                 x -= 3
-#     except:
-#         x += 1
-# getFormatedAdventures()
