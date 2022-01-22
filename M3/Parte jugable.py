@@ -16,6 +16,7 @@ def formatText(texto,longitud):
 
 aventura = input("Dime que aventura queires jugar: ")
 num_paso = 1
+
 while True:
     query = f"select * from pasos where num_paso = '{num_paso}'"
     cur.execute(query)
@@ -41,9 +42,11 @@ while True:
 
     while True:
         corrector = 0
-        opc = input("Elije un camino: ")
+        opc = input("Elije un camino (Pulsa 0 para salir): ")
+        if opc == "0":
+            break
         for i in lista:
-            if opc.isalnum() == False or opc.isalpha() or int(opc) != i :
+            if opc != str(i):
                 corrector = 0
             else:
                 corrector = 1
@@ -57,5 +60,5 @@ while True:
     num_paso = cur.fetchall()
     for i in num_paso:
         num_paso = i[0]
-    if opc == "+":
+    if opc == "0":
         break
