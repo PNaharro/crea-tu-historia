@@ -53,7 +53,6 @@ while True:
             user = input("Dime tu usuario: ")
             password = input("Dime tu constraseña: ")
             if Def.checkUserbdd(user, password) == 1:
-                print("Usuario identificado")
                 break
             elif Def.checkUserbdd(user, password) == 0:
                 print("Constraseña incorrecta")
@@ -61,16 +60,22 @@ while True:
                 print("Usuario inexistente")
 
         while True:
-            print("Selecciona historia")
             Def.getFormatedAdventures()
-            adv = input("Opcion:")
-            aventura = Def.get_table("aventura")
+            while True:
+                adv = input("Selecciona una historia (Pulsa 0 para salir):")
+                aventura = Def.get_table("aventura")
+                if not adv.isdigit():
+                    print("Valor incorrecto")
+                elif adv == "0":
+                    break
+                else:
+                    break
 
             for i in range(len(aventura)):
                 if int(adv) == int(aventura[1][i][0]):
                     print(Def.getHeader(aventura[1][i][1]))
                     cadena = "Aventura:".ljust(20) + str(aventura[1][i][1]).rjust(20) + "\n" + "Descripcion:".ljust(
-                        26) + str(aventura[1][i][9]).rjust(30)
+                        26) + str(aventura[1][i][7]).rjust(30)
                     print(cadena)
                     input("Pulsa para continuar ")
                     while True:
@@ -79,15 +84,16 @@ while True:
                         for i in Def.get_characters():
                             cadena = str(i).rjust(2) + ")".ljust(5) + str(Def.get_characters()[i])
                             print(cadena)
-                        select_char = input("Opcion: ")
+                        select_char = input("Opcion (Pulsa 0 para salir):")
                         if not select_char.isdigit():
                             print("Opcion incorrecta")
                         elif select_char == "0":
-                            print("Opcionn incorrecta")
+                            break
                         elif not int(select_char) >= 1 or int(select_char) <=  len(Def.get_characters()):
                             print("Has seleccionado a {}".format(Def.get_characters()[int(select_char)]))
                             input()
                             break
+
                         else:
                             print("Opcion incorrecta")
                 elif adv == "0":
