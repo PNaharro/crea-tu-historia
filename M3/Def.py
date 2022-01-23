@@ -24,6 +24,15 @@ for i in personajes:
     characters[i[0]] = i[1]
 #print(characters)
 
+query = f"select num_paso from pasos"
+cur.execute(query)
+num_paso = []
+num = cur.fetchall()
+for i in num:
+    num_paso.append(i)
+num = str(num_paso[0]).strip("(,)")
+#print(num)
+
 ###################################     FUNCIONES     #########################################################
 #MUESTRA LOS USUSARIOS EN UN DICCIONARIO CON SUS CONTRASEÑAS E IDS
 #######################################################################################################################
@@ -91,15 +100,19 @@ def checkPassword(password):
 #PONES UN USUARIO Y LA CONTRASEÑA RESPECTIVA DEL USUARIO Y LOS COMPRUEVA
 #######################################################################################################################
 def checkUserbdd(user,password):
+    lista_usu = []
     for i in getUsers():
+        lista_usu.append(i)
+    for i in lista_usu:
         if user == i:
             if password == getUsers()[i]["contraseña"]:
                 return 1
             else:
                 return -1
     return 0
-#print(checkUserbdd("a","a"))
-
+# user = input("Dime tu usuario: ")
+# password = input("Dime tu constraseña: ")
+# print(checkUserbdd(user,password))
 #######################################################################################################################
 #PONES EL NOMBRE DE LA TABLA DE LA BDD Y TE MUESTRA EN UNA TUPLA DE TUPLAS SU CONTENIDO
 #######################################################################################################################
@@ -187,7 +200,7 @@ def get_adventures_with_chars():
 #######################################################################################################################
 def get_characters():
     return characters
-#print(get_characters())
+#print(get_characters()[1])
 #######################################################################################################################
 #CUANDO EL TEXTO SUPERA LA LONGITUD, HACE UN ENTER
 #######################################################################################################################
@@ -238,9 +251,27 @@ def formatText_getFormatedAdventures(texto,longitud):
 def getFormatedAdventures():
     cadena = getHeadeForTableFromTuples(("Id Aventura","Aventura","Descripcion"),(0,13,44),"Adventures")
     print(cadena)
-    for i in get_adventures_with_chars():
-        print(str(i).ljust(15),get_adventures_with_chars()[i]["Name"].ljust(40),formatText_getFormatedAdventures(get_adventures_with_chars()[i]["Description"],40))
-#getFormatedAdventures()
+    x = 0
+
+    while True:
+        try:
+            for i in get_adventures_with_chars():
+                print(str(i + x).ljust(15), get_adventures_with_chars()[i + x]["Name"].ljust(40),
+                      formatText_getFormatedAdventures(get_adventures_with_chars()[i + x]["Description"], 40))
+                if i == 3:
+                    break
+                if x == 3 and i == 2:
+                    break
+            adv = input("Opcion: ")
+            if adv.isdigit():
+                break
+            elif adv == "+":
+                x += 3
+            elif adv == "-":
+                x -= 3
+        except:
+          x = 0
+    return adv
 #######################################################################################################################
 #CREA UN MENU AUTOMATICAMENTE
 #######################################################################################################################
@@ -259,3 +290,97 @@ def menu(tupla):
             return int(opc)
 #print(menu(("Tupla","De","Ejemplo")))
 #######################################################################################################################
+def get_answers_bystep_adventure(adv):
+    query = f"select paso from pasos where id_aventura = {adv}"
+    cur.execute(query)
+    pasos = {}
+    paso = cur.fetchall()
+    x = 1
+    for i in paso:
+        pasos["pasos{}".format(x)] = i[0]
+        x += 1
+    return pasos
+
+def get_id_bystep_adventure(adv):
+    query = f"select respuesta from respuesta where id_aventura = {adv}"
+    cur.execute(query)
+    respuesta = {}
+    resp = cur.fetchall()
+    x = 1
+    for i in resp:
+        respuesta["pasos{}".format(x)] = i[0]
+        x += 1
+    return respuesta
+
+def get_first_step_adventure(adv):
+    num = str(num_paso[0]).strip("(,)")
+    query = f"select paso from pasos where num_paso ={num} and id_aventura = {adv}"
+    cur.execute(query)
+    primera = cur.fetchall()
+    return primera
+def getHeader_getHeadeForTableFromTuples2(text):
+    x = (120-len(text))/2
+    y = 120
+    if len(text)%2!=0:
+        y -= 1
+    cadena = "="*int(x) + text + "="*int(x)
+    return cadena
+
+def getHeadeForTableFromTuples2(t_name_columns,t_size_columns,title):
+    cadena = getHeader_getHeadeForTableFromTuples2(title) + "\n"
+    for i in t_name_columns:
+            cadena += i.rjust(t_size_columns[0])
+            t_size_columns = t_size_columns[1:]
+    cadena += "\n" + "*" * 119
+    return
+
+def formatText2(text,lenLine,split):
+    result = ""
+
+    while len(text) > lenLine:
+        inicio = lenLine - 1
+        while text.find(" ", inicio, lenLine) == -1:
+            inicio = inicio - 1
+        result = result + text[0:inicio] + split
+        text = text[inicio:].lstrip()
+    result = result + text
+    return result
+
+def getFormatedBodyColumns(tupla_texts,tupla_sizes,margin=0):
+    resultado = ""
+    listaTextos = []
+    for i in range(len(tupla_texts)):
+        listaTextos.append(formatText2(tupla_texts[i],tupla_sizes[i]-margin,"XXXX"))
+    totalSize = 0
+    for i in range(len(listaTextos)):
+        totalSize +=len(listaTextos[i])
+    while totalSize > 0:
+        for i in range(len(listaTextos)):
+            final = listaTextos[i].find("XXXX")
+            if final != -1:
+                resultado += (listaTextos[i][0:final]+" "*margin).ljust(tupla_sizes[i])
+                listaTextos[i] = listaTextos[i][listaTextos[i].find("XXXX")+4:]
+            else:
+                resultado += (listaTextos[i] + " "*margin).ljust(tupla_sizes[i])
+                listaTextos[i] = ""
+        resultado += "\n"
+        totalSize = 0
+        for i in range(len(listaTextos)):
+            totalSize += len(listaTextos[i])
+    return resultado
+
+
+def getFormatedTable():
+    query = f"select a.id_aventura, a.nombre_aventura, p.id_paso, p.paso, r.id_respuesta, r.respuesta from aventura a inner join pasos p on p.id_aventura=a.id_aventura inner join respuesta r on r.id_paso=p.id_paso;"
+    cur.execute(query)
+    x = cur.fetchall()
+    print(getHeadeForTableFromTuples(("ID AVENTURA - NOMBRE","ID PASO - DESCRIPCION","ID RESPUESTA - DESCRIPCION","NUMERO DE VECES SELECCIONADA"),(0,25,43,31),"Respuestas más usadas"))
+
+
+#######    ###    #     #
+#           #     ##    #
+#           #     # #   #
+#####       #     #  #  #
+#           #     #   # #
+#           #     #    ##
+#          ###    #     #
