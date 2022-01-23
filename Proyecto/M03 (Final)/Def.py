@@ -62,11 +62,14 @@ def getUserIds():
 #COMPRUEBA SI EL USUARIO EXISTE EN LA BASE DE DATOS
 #######################################################################################################################
 def userExists(user):
+    correccion = 0
     for i in getUsers():
         if user == i:
-            return True
-        else:
-            return False
+            correccion = 1
+    if correccion == 1:
+        return True
+    else:
+        return False
 #user = input("Dime el usuario: ")
 #print(userExists(user))
 #######################################################################################################################
