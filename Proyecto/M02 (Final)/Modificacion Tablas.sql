@@ -1,0 +1,118 @@
+ use proyecto;
+
+alter table usuarios 
+add primary key(id_usu),
+add unique(id_usu),
+add unique(nombre),
+modify id_usu int auto_increment,
+modify nombre varchar(10) not null,
+modify password varchar(12) not null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50) null;
+
+alter table personajes
+add primary key(id_per),
+add unique(id_per),
+modify id_per int auto_increment,
+modify nombre varchar(10) not null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50) null;
+
+alter table aventura
+add primary key(id_aventura),
+add unique(id_aventura),
+modify id_aventura int auto_increment,
+modify nombre_aventura varchar(100) not null,
+modify fecha datetime null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50) null,
+modify descripcion varchar(100) not null;
+
+alter table pasos
+add primary key(id_paso),
+add unique(id_paso),
+modify id_paso int auto_increment,
+modify paso varchar(1000) not null,
+modify id_aventura int not null,
+modify num_paso int not null,
+modify final int not null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(10) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(10) not null,
+add constraint fk_pasos_aventura
+	foreign key (id_aventura)
+		references aventura(id_aventura);
+
+alter table respuesta
+add primary key(id_respuesta),
+add unique(id_respuesta),
+modify id_respuesta int auto_increment,
+modify respuesta varchar(1000) not null,
+modify id_paso int not null,
+modify id_aventura int null,
+modify num_respuesta int null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50)null,
+add constraint fk_respuesta_aventura
+	foreign key (id_aventura)
+		references aventura(id_aventura);
+
+alter table game
+add primary key (idgame),
+add unique (idgame),
+modify idgame int auto_increment,
+modify id_aventura int not null,
+modify id_usuario int not null,
+modify id_personaje int not null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50)null,
+add constraint fk_game_aventura
+	foreign key (id_aventura)
+		references aventura(id_aventura),
+add constraint fk_game_usuario
+	foreign key (id_usuario)
+		references usuarios(id_usu),
+add constraint fk_game_personaje
+	foreign key (id_personaje)
+		references personajes(id_per);
+
+alter table repeticiones
+add primary key(id_num),
+add unique (id_num),
+modify id_num int auto_increment,
+modify id_paso int null,
+modify id_respuesta int null,
+modify id_game int null,
+modify fechacreacion datetime null,
+modify usuariocreacion varchar(50) not null,
+modify fechamodificacion datetime null,
+modify usuariomodificacion varchar(50) null,
+add constraint fk_repeticiones_pasos
+	foreign key (id_paso)
+		references pasos(id_paso),
+add constraint fk_repeticiones_respuesta
+	foreign key(id_respuesta)
+		references respuesta(id_respuesta),
+add constraint fk_repeticiones_game
+	foreign key(id_game)
+		references game(idgame);
+
+
+CREATE unique INDEX indice_usuarios ON usuarios(id_usu);
+CREATE unique INDEX indice_aventura ON aventura(id_aventura);
+CREATE unique INDEX indice_personajes ON personajes(id_per);
+CREATE unique INDEX indice_repeticion ON repeticiones(id_num);
+CREATE unique INDEX indice_respuesta ON respuesta(id_respuesta);
+CREATE unique INDEX indice_pasos ON pasos(id_paso);
+create unique index indice_game on game(idgame);
